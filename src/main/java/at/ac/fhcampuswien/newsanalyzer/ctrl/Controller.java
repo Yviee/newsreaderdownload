@@ -28,7 +28,7 @@ public class Controller {
 		return getArticlesPrintReady();
 	}
 
-	public List<String> getAllURLs () {
+	public List<String> getAllURLs () throws NewsAPIException {
 		return articles.stream()
 				.map(Article::getUrl)				//get URLs
 				.collect(Collectors.toList());		//make List out of Stream

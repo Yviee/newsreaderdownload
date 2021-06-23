@@ -41,7 +41,6 @@ public class UserInterface {
 		System.out.println(result);
 	}
 
-
 	public void start() {
 		Menu<Runnable> menu = new Menu<>("User Interface");
 		menu.insert("a", "Top headlines for Austria", this::getTopHeadlinesAustria);
@@ -106,13 +105,12 @@ public class UserInterface {
 			SequentialDownloader sequential = new SequentialDownloader();
 
 			sequential.process(allURLs);
-		} /*catch (NewsAPIException e) {
+		} catch (NewsAPIException e) {
 			System.out.println("Please load data first!");
-		}*/ catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-
 
 	private void getDownloadLastSearchPar() {
 		try {
@@ -120,9 +118,9 @@ public class UserInterface {
 			ParallelDownloader parallel = new ParallelDownloader();
 
 			parallel.process(allURLs);
-		} /*catch (NewsAPIException e) {
+		} catch (NewsAPIException e) {
 			System.out.println("Please load data first!");
-		}*/ catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
