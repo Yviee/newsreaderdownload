@@ -1,4 +1,8 @@
-# NewsreaderStarterExercise4
+Github Link: https://github.com/Yviee/newsreaderdownload  
+
+In collaboration with: Jasmine Yilmaz & Clarissa Treml  
+
+## NewsreaderStarterExercise4
 
 ## Important!
 You can find the needed classes Downloader and SequentialDownloader inside java/at.ac.fhcampuswien/downloader package. 

@@ -14,4 +14,5 @@ public class SequentialDownloader extends Downloader {
         }
         return count;
     }
+
 }

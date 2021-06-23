@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class Controller {
 
-	public static final String APIKEY = "0038b5ccc1124e94b01d19b0d5982697";  //0038b5ccc1124e94b01d19b0d5982697
+	public static final String APIKEY = "314eb01ee5054b7da998359f29285675";  //Leon's key: 0038b5ccc1124e94b01d19b0d5982697
 
 	private List<Article> articles = null;
 
@@ -26,6 +26,12 @@ public class Controller {
 		System.out.println("End process");
 
 		return getArticlesPrintReady();
+	}
+
+	public List<String> getAllURLs () {
+		return articles.stream()
+				.map(Article::getUrl)				//get URLs
+				.collect(Collectors.toList());		//make List out of Stream
 	}
 
 	public List<Article> getArticles(NewsApi newsApi) throws NewsAPIException {

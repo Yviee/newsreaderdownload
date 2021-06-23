@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
 
 public abstract class Downloader {
 

@@ -3,6 +3,9 @@ package at.ac.fhcampuswien.newsanalyzer.ui;
 
 import at.ac.fhcampuswien.newsanalyzer.ctrl.Controller;
 import at.ac.fhcampuswien.newsanalyzer.ctrl.NewsAPIException;
+import at.ac.fhcampuswien.newsanalyzer.downloader.Downloader;
+import at.ac.fhcampuswien.newsanalyzer.downloader.ParallelDownloader;
+import at.ac.fhcampuswien.newsanalyzer.downloader.SequentialDownloader;
 import at.ac.fhcampuswien.newsapi.NewsApi;
 import at.ac.fhcampuswien.newsapi.NewsApiBuilder;
 import at.ac.fhcampuswien.newsapi.enums.Country;
@@ -11,6 +14,7 @@ import at.ac.fhcampuswien.newsapi.enums.Endpoint;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class UserInterface {
 
@@ -47,7 +51,45 @@ public class UserInterface {
 		menu.insert("x", "Shortest author name", this::getShortestNameOfAuthors);	// Exercise 3
 		menu.insert("y", "Get article count", this::getArticleCount);	// Exercise 3
 		menu.insert("z", "Sort by longest title", this::getSortArticlesByLongestTitle); // Exercise 3
-		menu.insert("g", "Download URLs", () -> {
+		menu.insert("g", "Download Last Search: Sequential", this::getDownloadLastSearchSeq); // Exercise 4
+		menu.insert("h", "Download Last Search: Parallel", this::getDownloadLastSearchPar); // Exercise 4
+		menu.insert("i", "Download Last Search: Seq + Par (+Time)", () -> {	// Exercise 4
+
+
+			System.out.println("Sequential Download: ");
+
+			// Stopwatch for different time measures: Sequential Download
+			//StopWatch stopWatch = new StopWatch();
+			//stopWatch.start();
+			//long start1seq = System.nanoTime();
+			long start2seq = System.currentTimeMillis();
+
+			getDownloadLastSearchSeq();
+
+			//long end1seq = System.nanoTime();
+			//System.out.println("Elapsed Time in nano seconds: "+ (end1seq-start1seq));
+			long end2seq = System.currentTimeMillis();
+			System.out.println("Elapsed Time in milli seconds: "+ (end2seq-start2seq));
+			//stopWatch.stop();
+			//System.out.println("Elapsed Time in minutes: "+ stopWatch.getTime());
+
+			System.out.println("\nParallel Download: ");
+			// Stopwatch for different time measures: Parallel Download
+			//StopWatch stopWatch2 = new StopWatch();
+			//stopWatch2.start();
+			//long start1par = System.nanoTime();
+			long start2par = System.currentTimeMillis();
+
+			getDownloadLastSearchPar();
+
+			//long end1par = System.nanoTime();
+			//System.out.println("Elapsed Time in nano seconds: "+ (end1par-start1par));
+
+			long end2par = System.currentTimeMillis();
+			System.out.println("Elapsed Time in milli seconds: "+ (end2par-start2par));
+			//stopWatch2.stop();
+			//System.out.println("Elapsed Time in minutes: "+ stopWatch2.getTime());
+
 			//Todo
 		});
 		menu.insert("q", "Quit", null);
@@ -58,6 +100,32 @@ public class UserInterface {
 		System.out.println("Program finished");
 	}
 
+	private void getDownloadLastSearchSeq() {
+		try {
+			List<String> allURLs = ctrl.getAllURLs();
+			SequentialDownloader sequential = new SequentialDownloader();
+
+			sequential.process(allURLs);
+		} /*catch (NewsAPIException e) {
+			System.out.println("Please load data first!");
+		}*/ catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+
+	private void getDownloadLastSearchPar() {
+		try {
+			List<String> allURLs = ctrl.getAllURLs();
+			ParallelDownloader parallel = new ParallelDownloader();
+
+			parallel.process(allURLs);
+		} /*catch (NewsAPIException e) {
+			System.out.println("Please load data first!");
+		}*/ catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
     protected String readLine() {
 		String value = "\0";
